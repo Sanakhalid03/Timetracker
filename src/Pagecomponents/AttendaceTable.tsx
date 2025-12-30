@@ -1,8 +1,10 @@
 import { Calendar1 } from "@/Components/ui/calender"
-
-
+import {useAppSelector } from "@/Redux/Hooks"
+import { BsEmojiFrown } from "react-icons/bs";
+import {format} from "date-fns"
 
 function AttendaceTable() {
+    const records=useAppSelector(state=>state.clock.record)
   return (
     <div className="flex flex-col gap-12  bg-white py-10 px-2 md:px-8 rounded-2xl shadow-lg">
                 <div className="flex flex-col md:flex-row gap-3 items-center">
@@ -28,26 +30,24 @@ function AttendaceTable() {
               
             </thead>
             <tbody className="divide-y ">
-                <tr className="text-xs md:text-sm font-medium">
-                    <td className="px-1 py-2 md:px-2 md:py-4">Dec 28, 2025</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4 text-green-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4  text-red-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4">12h 24m</td>
-                </tr>
-                <tr className="text-xs md:text-sm font-medium">
-                    <td className="px-1 py-2 md:px-2 md:py-4">Dec 28, 2025</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4 text-green-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4  text-red-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4">12h 24m</td>
-                </tr>
-                <tr className="text-xs md:text-sm font-medium">
-                    <td className="px-1 py-2 md:px-2 md:py-4">Dec 28, 2025</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4 text-green-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4  text-red-700">09:00</td>
-                    <td className="px-1 py-2 md:px-2 md:py-4">12h 24m</td>
-                </tr>
-               
-              
+                {
+                    records.length === 0 && (
+                    <tr className="text-xs md:text-sm font-medium">
+                    <td colSpan={4} className="px-1 py-2 md:px-2 md:py-4"><div className=" flex items-center justify-center gap-3"><span>No Record </span><BsEmojiFrown /></div></td>
+                    </tr>
+                    )
+                }
+                {
+                    records.map((r,i)=>
+                    <tr key={i} className="text-xs md:text-sm font-medium">
+                    <td className="px-1 py-2 md:px-2 md:py-4">{r.date}</td>
+                    <td className="px-1 py-2 md:px-2 md:py-4 text-green-700">{r.clockIn && format(new Date(r.clockIn),"hh:mm a")}</td>
+                    <td className="px-1 py-2 md:px-2 md:py-4  text-red-700">{r.clockOut && format(new Date(r.clockOut),"hh:mm a")}</td>
+                    <td className="px-1 py-2 md:px-2 md:py-4">{r.duration}</td>
+                </tr>    
+                    )
+                }
+                      
               
             </tbody>
            </table>

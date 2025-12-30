@@ -1,8 +1,12 @@
+import { clockIn, clockOut } from "@/Redux/clockSlice"
+import { useAppDispatch, useAppSelector } from "@/Redux/Hooks"
 import { LogIn, LogOut, Timer, User } from "lucide-react"
 import { PiDotFill } from "react-icons/pi"
-
+import {format} from "date-fns"
 
 function EmpolyeeCard() {
+    const dispatch=useAppDispatch()
+    const clock=useAppSelector(state=>state.clock)
   return (
     <div className="flex flex-col gap-6  bg-white p-6 px-8 rounded-2xl shadow-lg">
         <div className="flex flex-col gap-4 items-center md:flex-row md:justify-between lg:flex-row lg:justify-between ">
@@ -29,7 +33,7 @@ function EmpolyeeCard() {
                 </div>
             <div className="w-[40%]">
                 <h1 className="text-sm font-semibold text-gray-600" >Clock In</h1>
-                <span className="text-xl font-medium">09:00</span>
+                <span className="text-xl font-medium">{clock.clockIn ? format(new Date(clock.clockIn), "hh:mm a" ): "--:--"}   </span>
             </div> 
         </div>
                <div className="flex gap-3 items-center w-full justify-center md:justify-start md:w-[45%]">
@@ -38,19 +42,19 @@ function EmpolyeeCard() {
                 </div>
             <div className="w-[40%]">
                  <h1 className="text-sm font-semibold text-gray-600" >Clock Out</h1>
-                <span className="text-xl font-medium">--:--</span>
+                <span className="text-xl font-medium">{clock.clockOut ? format(new Date(clock.clockOut), "hh:mm a" ): "--:--"}    </span>
             </div> 
         </div>
         </div>
 
         <div className="flex flex-col gap-3 md:flex-row items-center justify-between">
-         <button className="w-full md:w-[48%] transition ease-in duration-200 bg-sky-400 hover:bg-sky-300 cursor-pointer p-4 rounded-2xl flex justify-center items-center gap-2 font-semibold text-white">
+         <button onClick={()=>dispatch(clockIn())} className="w-full md:w-[48%] transition ease-in duration-200 bg-sky-400 hover:bg-sky-300 cursor-pointer p-4 rounded-2xl flex justify-center items-center gap-2 font-semibold text-white">
             <LogIn size={15} className="font-semibold"/>
             <span className="text-lg  ">Clock In</span>
          </button>
-         <button className="w-full md:w-[48%]  transition ease-in duration-200 bg-red-500 hover:bg-red-400 cursor-pointer  p-4 rounded-2xl flex justify-center items-center gap-2 font-semibold text-white">
+         <button onClick={()=>dispatch(clockOut())} className="w-full md:w-[48%]  transition ease-in duration-200 bg-red-500 hover:bg-red-400 cursor-pointer  p-4 rounded-2xl flex justify-center items-center gap-2 font-semibold text-white">
             <LogOut size={15} className="font-semibold"/>
-            <span className="text-lg  ">Clock In</span>
+            <span className="text-lg  ">Clock Out</span>
          </button>
 
         </div>
