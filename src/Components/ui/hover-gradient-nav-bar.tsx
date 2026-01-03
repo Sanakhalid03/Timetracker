@@ -1,22 +1,22 @@
 import React from 'react';
 import { motion,type  Variants } from 'framer-motion';
-import {User, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { IoIosTimer } from 'react-icons/io';
 import {format} from "date-fns"
+import Switch from "./switch"
 // --- HoverGradientNavBar Component ---
 
 interface HoverGradientMenuItem {
   icon: React.ReactNode;
-  label: string;
-  href: string;
-  gradient: string;
-  iconColor: string;
-  iconMobile?: boolean;
+  label?: string;
+  href?: string;
+  gradient?: string;
+  iconColor?: string;
+  disableHover?: boolean;
 }
 
 const rightmenuItems: HoverGradientMenuItem[] = [
-  { icon: <User className="h-5 w-5" />, label: "Sana", href: "#", gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)", iconColor: "group-hover:text-red-500 dark:group-hover:text-red-400" ,iconMobile:true},
- 
+  { icon: <Switch/>,disableHover:true},
   { icon: <LogOut className="h-5 w-5" />, label: "Logout", href: "#", gradient: "radial-gradient(circle, rgba(161,98,7,0.15) 0%, rgba(133,77,14,0.06) 50%, rgba(100,62,8,0) 100%)", iconColor: "group-hover:text-amber-600 dark:group-hover:text-amber-400" },
 ];
 const leftmenuItems: HoverGradientMenuItem[] = [
@@ -58,8 +58,8 @@ function HoverGradientNavBar(): React.JSX.Element {
     <div className="relative w-full  ">
       <motion.nav
         className="w-full md:w-[70vw] lg:w-[60vw] mx-auto px-2 md:px-4 py-2 md:py-3 rounded-none md:rounded-3xl 
-        bg-white dark:bg-black/80 backdrop-blur-lg 
-        border-t md:border border-gray-200/80 dark:border-gray-800/80 
+        bg-white dark:bg-slate-900/90 backdrop-blur-lg 
+        border-t md:border border-gray-200/80 dark:border-slate-700 
         shadow-lg md:shadow-xl relative"
         initial="initial"
         whileHover="hover"
@@ -148,7 +148,7 @@ function HoverGradientNavBar(): React.JSX.Element {
               <motion.div
                 className="block rounded-xl md:rounded-2xl overflow-visible group relative"
                 style={{ perspective: "600px" }}
-                whileHover="hover"
+                whileHover={item.disableHover? undefined:"hover"}
                 initial="initial"
               >
                 {/* Per-item glow */}
@@ -175,7 +175,7 @@ function HoverGradientNavBar(): React.JSX.Element {
                     transformOrigin: "center bottom"
                   }}
                 >
-                    <span className={`transition-colors duration-300 ${item.iconColor} ${item.iconMobile ? "hidden md:inline":""}`}>
+                    <span className={`transition-colors duration-300 ${item.iconColor} `}>
                     {item.icon}
                   </span>
                 
@@ -200,7 +200,7 @@ function HoverGradientNavBar(): React.JSX.Element {
                   }}
                 >
             
-                      <span className={`transition-colors duration-300 ${item.iconColor} ${item.iconMobile ? "hidden md:inline":""}`}>
+                      <span className={`transition-colors duration-300 ${item.iconColor} `}>
                     {item.icon}
                   </span>
                     

@@ -10,7 +10,7 @@ function Dashboard() {
   return (
     <>
       
-   <div className=" h-auto md:pt-4 bg-sky-50">
+   <div className=" h-auto md:pt-4 bg-sky-50 dark:bg-slate-900">
      
         <div >
               <HoverGradientNavBar/>
