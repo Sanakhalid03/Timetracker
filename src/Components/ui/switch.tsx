@@ -16,7 +16,6 @@ useEffect(()=>{
 },[dark])
  
 
-},[]) 
 const toggleTheme=()=>{
 
   setDark(prev=>{
