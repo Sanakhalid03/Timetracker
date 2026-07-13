@@ -82,7 +82,7 @@ const StyledWrapper = styled.div`
   .sun svg {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 30px;
     z-index: 1;
     width: 1rem;
     height: 1rem;
@@ -92,7 +92,7 @@ const StyledWrapper = styled.div`
     fill: #73C0FC;
     position: absolute;
     top: 5px;
-    left: 30px;
+    left: 5px;
     z-index: 1;
     width: 1rem;
     height: 1rem;
