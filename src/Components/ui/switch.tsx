@@ -3,28 +3,34 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Switch = () => {
-  const [dark,setDark]=useState(false)
- useEffect(()=>{
-    const theme=localStorage.getItem("theme")
-  if(theme==="dark"){
-     document.documentElement.classList.add("dark")
-     setDark(true)
+const [dark,setDark]=useState(()=>{
+  return localStorage.getItem("theme")==="dark"
+})
+useEffect(()=>{
+  if(dark){
+    document.documentElement.classList.add("dark")
   }
+  else{
+    document.documentElement.classList.remove("dark")
+  }
+},[dark])
  
 
 },[]) 
-  const toggleTheme=()=>{
-    const html=document.documentElement
-    if(dark){
-      html.classList.remove("dark")
-      localStorage.setItem("theme","light")
-    }
-    else{
-      html.classList.add("dark")
-      localStorage.setItem("theme","dark")
-    }
-    setDark(!dark)
-  }
+const toggleTheme=()=>{
+
+  setDark(prev=>{
+    const newTheme=!prev
+
+    localStorage.setItem(
+      "theme",
+      newTheme ? "dark" : "light"
+    )
+
+    return newTheme
+  })
+
+}
   
   return (
     <StyledWrapper>
